@@ -9,7 +9,6 @@ public class Board {
     public Board() {
         // TODO: initialize tiles
         int[] startState = {0,1,2,3,4,5,6,7,8};
-
         this.tiles = startState;
         emptyRow = 0;
         emptyCol = 0;
@@ -20,17 +19,13 @@ public class Board {
         return tiles[row * 3 + col];
     }
 
-    // Returns the empty tile
-    // public int getEmpty() {
-    //     for (int row = 0; row < 3; row++){
-    //         for (int col = 0; col < 3; col ++){
-    //             if (tiles[row * 3 + col] == 0) {
-    //                 return tiles[row * 3 + col];
-    //             }
-    //         }
-    //     }
-    //     return 0;
-    // }
+    public int getEmptyRow() {
+        return emptyRow;
+    }
+
+    public int getEmptyCol() {
+        return emptyCol;
+    }
 
     // Chekcs if tile (row, col) is adjacent with the empty tile
     public boolean isAdjacent(int row, int col) {
