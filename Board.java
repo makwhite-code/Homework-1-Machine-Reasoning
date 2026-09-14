@@ -4,7 +4,8 @@ public class Board {
     // Initializes a board object
     public Board(int[] tiles) {
         // TODO: initialize tiles
-        this.tiles = tiles;
+        int[] startState = {0,1,2,3,4,5,6,7,8};
+        this.tiles = startState;
     }
 
     // Returns the tile at the specified row and column
@@ -26,8 +27,33 @@ public class Board {
         return 0;
     }
 
+    // returns the neighboring tiles of a specific row and col 
+
     // Randomizes the board
     public void shuffle() {
         // TODO: implement
+        //Find empty space
+        // Determine where empty space is
+        // depending on the locaion of the empty tile, find its valud neighbors
+        // pick a random neighbor and move the tile to the empty tile
+        // repeat for some number of times
+        
+        // Call getEmpty function to get empty tile
+        // grab dimensions of that tile
+
+        // for (int i= 0; i < 20; i++) {
+        //     Tile emptyTile = getEmpty();
+        //     int row = emptyTile.getRow()
+        //     int col = emptyTile.getCol()
+        //     Tile[] neighbors = board.getNeighbors(row, col)
+        // }
+        // Tile emptyTile = getEmpty();
+        // int row = emptyTile.getRow()
+        // int col = emptyTile.getCol()
+        //
+
+        
+
+
     }
 }
