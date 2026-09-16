@@ -14,6 +14,13 @@ public class Board {
         emptyCol = 0;
     }
 
+    public Board(int[] nums) {
+        // TODO: initialize tiles
+        this.tiles = nums;
+        emptyRow = 0;
+        emptyCol = 0;
+    }
+
     // Returns the tile at the specified row and column
     public int getTile(int row, int col) {
         return tiles[row * 3 + col];
@@ -136,5 +143,47 @@ public class Board {
             }
             System.out.println();
         }
+    }
+
+    // returns the number of misplaced tiles
+    public int calculateh1() {
+        if (isSolved() == true) {
+            return 0;
+        }
+
+        int numMisplaced = 0;
+        int expectedValue = 0;
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                int tileValue = tiles[row * 3 + col];
+                if (tileValue != expectedValue && tileValue != 0) {
+                    numMisplaced = numMisplaced + 1;
+                }
+                expectedValue++;
+            }
+        }
+        return numMisplaced;
+    }
+
+    // returns the total manhattan distance of each misplaced tile
+    public int calculateh2() {
+        if (isSolved() == true) {
+            return 0;   
+        }
+
+        int manhattanVal = 0;
+        int expectedValue = 0;
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                int tileValue = tiles[row * 3 + col];
+                if (tileValue != expectedValue && tileValue != 0) {
+                    int expectedRow = tileValue/3;
+                    int expectedCol = tileValue%3;
+                    manhattanVal = manhattanVal + (Math.abs(row - expectedRow) + Math.abs(col - expectedCol));
+                }
+                expectedValue++;
+            }
+        }
+        return manhattanVal;
     }
 }
