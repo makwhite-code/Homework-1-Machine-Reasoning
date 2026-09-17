@@ -183,6 +183,16 @@ public class Board {
         }
     }
 
+    public String toString() {
+    String result = "";
+
+    for (int i = 0; i < tiles.length; i++) {
+        result += tiles[i];
+    }
+
+    return result;
+}
+
     // returns the number of misplaced tiles
     public int calculateh1() {
         if (isSolved() == true) {
