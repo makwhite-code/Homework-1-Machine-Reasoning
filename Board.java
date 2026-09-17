@@ -14,7 +14,6 @@ public class Board {
      * Initializes a board with the solved start state. Sets the empty tile location
      */
     public Board() {
-        // TODO: initialize tiles
         int[] startState = {0,1,2,3,4,5,6,7,8};
         this.tiles = startState;
         emptyRow = 0;
@@ -27,21 +26,16 @@ public class Board {
      * @param nums  The given start state of the board
      */
     public Board(int[] nums) {
-        // TODO: initialize tiles
         this.tiles = nums;
-        emptyRow = 0;
-        emptyCol = 0;
-    }
 
-    /**
-     * Gets the tile from the specified (row, col) location on the board
-     * 
-     * @param row   Integer value of the row
-     * @param col   Integer value of the column
-     * @return      The tile value at the specified (row, col)
-     */
-    public int getTile(int row, int col) {
-        return tiles[row * 3 + col];
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (nums[row * 3 + col] == 0) {
+                    emptyRow = row;
+                    emptyCol = col;
+                }
+            }
+        }
     }
 
     /**
@@ -63,22 +57,44 @@ public class Board {
     }
 
     /**
+     * Gets the tiles of the board
+     * @return
+     */
+    public int[] getTiles() {
+        return tiles;
+    }
+
+    /**
+     * Gets the tile from the specified (row, col) location on the board
+     * 
+     * @param row   Integer value of the row
+     * @param col   Integer value of the column
+     * @return      The tile value at the specified (row, col)
+     */
+    public int getTile(int row, int col) {
+        return tiles[row * 3 + col];
+    }
+
+    public int[] getTile( int value) {
+        int[] location = new int[2];
+
+        for (int row = 0; row < 3; row++){
+            for (int col = 0; col < 3; col++){
+                if (tiles[row * 3 + col]== value){
+                    location[0] = row;
+                    location[1] = col;
+                }
+            }
+        }
+        return location;
+    }
+
+    /**
      * Chekcs if the specified tile (row, col) is adjacent with the empty tile.
      */
     public boolean isAdjacent(int row, int col) {
-
         int valrow = row;
         int valcol = col;
-
-        // Optional: search isAdjacent by value rather than tile location
-        // for (int i = 0; i < 3; i++){
-        //     for (int j = 0; j < 3; j++){
-        //         if (tiles[i * 3 + j] == value){
-        //             valrow = i;
-        //             valcol = j;
-        //         }
-        //     }
-        // }
 
         if (valrow == emptyRow){
             if(valcol == emptyCol + 1 || valcol == emptyCol - 1){
@@ -119,20 +135,6 @@ public class Board {
         }
 
         if (isAdjacent(row, col)) {
-            // swap the tiles
-            // int valrow = -1;
-            // int valcol = -1;
-
-            // Optional: moveTile() by value instead of (row, col)
-            // for (int i = 0; i < 3; i++){
-            //     for (int j = 0; j < 3; j++){
-            //         if (tiles[i * 3 + j]== value){
-            //             valrow = i;
-            //             valcol = j;
-            //         }
-            //     }
-            // }
-            
             int temp = tiles[emptyRow * 3 + emptyCol]; // should be 0
             tiles[emptyRow * 3 + emptyCol] = tiles[row * 3 + col];
             tiles[row * 3 + col] = temp;
@@ -184,14 +186,14 @@ public class Board {
     }
 
     public String toString() {
-    String result = "";
+        String result = "";
 
-    for (int i = 0; i < tiles.length; i++) {
-        result += tiles[i];
+        for (int i = 0; i < tiles.length; i++) {
+            result += tiles[i];
+        }
+
+        return result;
     }
-
-    return result;
-}
 
     // returns the number of misplaced tiles
     public int calculateh1() {
@@ -233,5 +235,52 @@ public class Board {
             }
         }
         return manhattanVal;
+    }
+
+    // A helper function for calculateh3() that finds the first misplaced tile in the board
+    public int[] findMisplaced() {
+        int[] location = {-1, -1};
+
+        for( int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (tiles[row * 3 + col] != row * 3 + col) {
+                    location[0] = row;
+                    location[1] = col;
+                    return location;
+                }
+            }
+        }
+
+        return location;
+    }
+
+    // Implement relaxed agency function in paper.
+    public int calculateh3() {
+        Board copy = new Board(tiles);
+        int count = 0;
+
+        while(copy.isSolved() != true) {
+            if(copy.emptyRow == 0 && copy.emptyCol == 0) { // If the blank is in its own goal
+                int[] location = copy.findMisplaced(); // Find the first closest misplaced tile
+                int value = copy.tiles[location[0] * 3 + location[1]]; // Get the value of the misplaced tile
+                copy.tiles[0] = value; // Swap the tiles
+                copy.tiles[location[0] * 3 + location[1]] = 0;
+                copy.emptyRow = location[0]; // reinitalize empty tile location
+                copy.emptyCol = location[1];
+                count++;
+            }
+
+            else {
+                int value = copy.emptyRow * 3 + copy.emptyCol; // Get the value that should be in blank's position
+                int[] location = getTile(value); // Get the position of the value
+                copy.tiles[copy.emptyRow * 3 + copy.emptyCol] = value; // Swap the tiles
+                copy.tiles[location[0] * 3 + location[1]] = 0;
+                copy.emptyRow = location[0]; // reinitalize empty tile location
+                copy.emptyCol = location[1];
+                count++;
+            }
+        }
+
+        return count;
     }
 }
