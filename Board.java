@@ -20,6 +20,7 @@ public class Board {
         emptyCol = 0;
     }
 
+
     /**
      * Initializes a board with a given start state
      * 
@@ -38,6 +39,7 @@ public class Board {
         }
     }
 
+
     /**
      * Gets the row where the empty tile is located
      * 
@@ -46,6 +48,7 @@ public class Board {
     public int getEmptyRow() {
         return emptyRow;
     }
+
 
     /**
      * Gets the column where the empty tile is located
@@ -58,7 +61,8 @@ public class Board {
 
     /**
      * Gets the tiles of the board
-     * @return
+     * 
+     * @return  the int array of tiles in a board
      */
     public int[] getTiles() {
         return tiles;
@@ -75,6 +79,13 @@ public class Board {
         return tiles[row * 3 + col];
     }
 
+
+    /**
+     * Gets the (row, col) location of a the tile of a specified value
+     * 
+     * @param value The interested tile value
+     * @return      An int array containing the [row, col] values
+     */
     public int[] getTile( int value) {
         int[] location = new int[2];
 
@@ -89,8 +100,13 @@ public class Board {
         return location;
     }
 
+   
     /**
      * Chekcs if the specified tile (row, col) is adjacent with the empty tile.
+     * 
+     * @param row   Integer value of the row
+     * @param col   Integer value of the column
+     * @return      True if the specified tile is adjacent to the empty tile. False if otherwise.
      */
     public boolean isAdjacent(int row, int col) {
         int valrow = row;
@@ -112,8 +128,10 @@ public class Board {
         return false;
     }
 
+
     /**
      * Checks if the tile at a specified location is in the bounds of the board
+     * 
      * @param row   Integer value of the row
      * @param col   Integer value of the column
      * @return      A true or false whether the tile is in the board bounds
@@ -125,9 +143,13 @@ public class Board {
         return true;
     }
 
-    // Moves tile(row, col) with the empty tile. If move is successful, returns true. Otherwise returns false.
+    
     /**
+     * Moves tile(row, col) with the empty tile. If move is successful, returns true. Otherwise returns false.
      * 
+     * @param row   Integer value of the row
+     * @param col   Integer value of the column
+     * @return      Returns true if move was sucessful, false if otherwise
      */
     public boolean moveTile(int row, int col) {
         if (inBounds(row, col) == false) {
@@ -141,13 +163,17 @@ public class Board {
             emptyRow = row;
             emptyCol = col;
             return true;
-
             }
 
         return false;
     } 
 
-    // Shuffles the board by randomly moving tiles by a set number of steps
+
+    /**
+     * Shuffles the board by randomly moving tiles by a set number of steps
+     * 
+     * @param numSteps  Specified number of random moves on the board
+     */
     public void shuffle(int numSteps) {
         Random random = new Random();
         int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -160,7 +186,12 @@ public class Board {
         }
     }
 
-    // Checks if the current state of the board is solved
+    
+    /**
+     * Checks if the current state of the board is solved
+     * 
+     * @return  Returns a true if the current state of the board is solved, false if otherwise
+     */
     public boolean isSolved() {
         int expectedValue = 0;
         for (int row = 0; row < 3; row++) {
@@ -175,7 +206,10 @@ public class Board {
         return true;
     }
 
-    // optional function to print board to help visualize
+   
+    /**
+     * Optional function to print the board as a 3x3 board
+     */
     public void printClean() {
         for (int row = 0; row < 3; row++){
             for (int col = 0; col < 3; col++) {
@@ -195,7 +229,12 @@ public class Board {
         return result;
     }
 
-    // returns the number of misplaced tiles
+    
+    /**
+     * returns the number of misplaced tiles
+     * 
+     * @return 
+     */
     public int calculateh1() {
         if (isSolved() == true) {
             return 0;
@@ -215,7 +254,12 @@ public class Board {
         return numMisplaced;
     }
 
-    // returns the total manhattan distance of each misplaced tile
+  
+    /**
+     * returns the total manhattan distance of each misplaced tile
+     * 
+     * @return
+     */
     public int calculateh2() {
         if (isSolved() == true) {
             return 0;   
@@ -237,7 +281,12 @@ public class Board {
         return manhattanVal;
     }
 
-    // A helper function for calculateh3() that finds the first misplaced tile in the board
+    
+    /**
+     * A helper function for calculateh3() that finds the first misplaced tile in the board
+     * 
+     * @return
+     */
     public int[] findMisplaced() {
         int[] location = {-1, -1};
 
@@ -254,7 +303,12 @@ public class Board {
         return location;
     }
 
-    // Implement relaxed agency function in paper.
+    
+    /**
+     * Implement relaxed agency function in paper.
+     * 
+     * @return
+     */
     public int calculateh3() {
         Board copy = new Board(tiles);
         int count = 0;
