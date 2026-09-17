@@ -1,3 +1,7 @@
+/** 
+ * A Board class that implements the 8-Tile puzzle game. Includes functions to calculate the heuristic of the board
+ * 
+ */
 import java.util.Random;
 
 public class Board {
@@ -5,7 +9,10 @@ public class Board {
     private int emptyRow;
     private int emptyCol;
 
-    // Initializes a board object
+    
+    /**
+     * Initializes a board with the solved start state. Sets the empty tile location
+     */
     public Board() {
         // TODO: initialize tiles
         int[] startState = {0,1,2,3,4,5,6,7,8};
@@ -14,6 +21,11 @@ public class Board {
         emptyCol = 0;
     }
 
+    /**
+     * Initializes a board with a given start state
+     * 
+     * @param nums  The given start state of the board
+     */
     public Board(int[] nums) {
         // TODO: initialize tiles
         this.tiles = nums;
@@ -21,20 +33,38 @@ public class Board {
         emptyCol = 0;
     }
 
-    // Returns the tile at the specified row and column
+    /**
+     * Gets the tile from the specified (row, col) location on the board
+     * 
+     * @param row   Integer value of the row
+     * @param col   Integer value of the column
+     * @return      The tile value at the specified (row, col)
+     */
     public int getTile(int row, int col) {
         return tiles[row * 3 + col];
     }
 
+    /**
+     * Gets the row where the empty tile is located
+     * 
+     * @return  Integer value of the row
+     */
     public int getEmptyRow() {
         return emptyRow;
     }
 
+    /**
+     * Gets the column where the empty tile is located
+     * 
+     * @return  Integer value of the column
+     */
     public int getEmptyCol() {
         return emptyCol;
     }
 
-    // Chekcs if tile (row, col) is adjacent with the empty tile
+    /**
+     * Chekcs if the specified tile (row, col) is adjacent with the empty tile.
+     */
     public boolean isAdjacent(int row, int col) {
 
         int valrow = row;
@@ -66,7 +96,12 @@ public class Board {
         return false;
     }
 
-    // Checks if tile(row, col) is in bounds of the board
+    /**
+     * Checks if the tile at a specified location is in the bounds of the board
+     * @param row   Integer value of the row
+     * @param col   Integer value of the column
+     * @return      A true or false whether the tile is in the board bounds
+     */
     public boolean inBounds(int row, int col) {
         if (row >= 3 || row < 0 || col >= 3 || col < 0) {
             return false;
@@ -75,6 +110,9 @@ public class Board {
     }
 
     // Moves tile(row, col) with the empty tile. If move is successful, returns true. Otherwise returns false.
+    /**
+     * 
+     */
     public boolean moveTile(int row, int col) {
         if (inBounds(row, col) == false) {
             return false;
