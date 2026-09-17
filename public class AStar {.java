@@ -11,6 +11,12 @@ public class AStar {
         //Create the starting node
         Node startNode = new Node(start);
 
+        //Tracks how many nodes have been created
+        int numNodes = 1;
+
+        //Tracks depth of board
+        int depth = 0;
+
         //Create a priority queue
         PriorityQueue<Node> track = new PriorityQueue<>();
 
@@ -28,19 +34,24 @@ public class AStar {
             Node current = track.poll();
             String uniqueCombo = current.getBoard().toString();
 
+            // Check if this board is the goal
+            if (current.getBoard().isSolved()) {
+                // ToDo: reconstruct solution
+                return;
+            }
+
             if (explored.contains(uniqueCombo)) {
                 continue;
             }
 
-            explored.add(uniqueCombo);
-
-            // Check if this board is the goal
-            if (current.getBoard().isSolved()) {
-                // TODO: reconstruct solution
-                return;
+            else{
+               explored.add(uniqueCombo);
             }
+            
 
-            // ToDo: generate neighboring boards
+            // ToDo: generate neighboring boards 
+            numNodes += 1;
+            int depth = current.getG();
         }
 
         // No solution found???
