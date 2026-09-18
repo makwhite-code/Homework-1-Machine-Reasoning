@@ -59,13 +59,13 @@ public class AStar {
     
 }
 
-@Override
-public String toString() {
-    String result = "";
+// @Override
+// public String toString() {
+//     String result = "";
 
-    for (int i = 0; i < tiles.length; i++) {
-        result += tiles[i];
-    }
+//     for (int i = 0; i < tiles.length; i++) {
+//         result += tiles[i];
+//     }
 
-    return result;
-}
+//     return result;
+// }
