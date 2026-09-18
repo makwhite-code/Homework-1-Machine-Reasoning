@@ -1,3 +1,5 @@
+//Implements A star and returns the number of generated nodes and depth
+
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
