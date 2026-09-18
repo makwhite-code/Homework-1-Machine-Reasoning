@@ -1,3 +1,5 @@
+//Tracks and creates nodes for each board
+
 public class Node implements Comparable<Node> {
 
     private Board board;
@@ -14,7 +16,7 @@ public class Node implements Comparable<Node> {
 
         this.g = 0;
 
-        this.h = board.calculateh2();
+        this.h = board.calculateh3();
 
         this.f = g + h;
     }
@@ -28,7 +30,7 @@ public class Node implements Comparable<Node> {
         this.g = parent.getG() + 1;
 
         // Calculate h using this board
-        this.h = board.calculateh2();
+        this.h = board.calculateh3();
 
         // Calculate total f
         this.f = g + h;
