@@ -206,6 +206,29 @@ public class Board {
         return true;
     }
 
+ 
+    /**
+     * Gets the neighboring tiles of the blank tile
+     * 
+     * @return  An array of valid neighboring coordiates
+     */
+    public int[][] getNeighbors() {
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        int[][] neighbors = {{-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}};
+
+        for (int i = 0; i < 4; i++) {
+            int[] dir = directions[i];
+            if (inBounds(emptyRow + dir[0], emptyCol + dir[1]) == true) {
+                int[] neighborCoord = new int[2];
+                neighborCoord[0] = emptyRow + dir[0];
+                neighborCoord[1] = emptyCol + dir[1];
+                neighbors[i] = neighborCoord;
+            }
+        }
+
+        return neighbors;
+    }
+
    
     /**
      * Optional function to print the board as a 3x3 board
