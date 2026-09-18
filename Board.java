@@ -39,6 +39,19 @@ public class Board {
         }
     }
 
+    //Constructor to create board from an existing board
+
+    public Board(Board other) {
+        this.tiles = new int[9];
+    
+        for (int i = 0; i < 9; i++) {
+            this.tiles[i] = other.tiles[i];
+        }
+    
+        this.emptyRow = other.emptyRow;
+        this.emptyCol = other.emptyCol;
+    }
+
 
     /**
      * Gets the row where the empty tile is located
