@@ -14,9 +14,6 @@ public class AStar {
         //Tracks how many nodes have been created
         int numNodes = 1;
 
-        //Tracks depth of board
-        int depth = 0;
-
         //Create a priority queue
         PriorityQueue<Node> track = new PriorityQueue<>();
 
@@ -36,7 +33,10 @@ public class AStar {
 
             // Check if this board is the goal
             if (current.getBoard().isSolved()) {
-                // ToDo: reconstruct solution
+                int depth = current.getG();
+                System.out.println("Solution depth: " + depth);
+                System.out.println("Nodes created: " + numNodes);
+
                 return;
             }
 
@@ -46,26 +46,30 @@ public class AStar {
 
             else{
                explored.add(uniqueCombo);
+
             }
             
+            
+            Board currentBoard = current.getBoard();
+            int[][] neighbors = currentBoard.getNeighbors();
 
-            // ToDo: generate neighboring boards 
-            numNodes += 1;
-            int depth = current.getG();
+            for (int i = 0; i < neighbors.length; i++){
+                int[] neighbor = neighbors[i];
+
+                if (neighbor[0] != -1){
+
+                    Board copy = new Board(currentBoard);
+                    copy.moveTile(neighbor[0], neighbor[1]);
+                    Node child = new Node(copy, current);
+                    track.add(child);
+
+                     numNodes += 1;
+                }
+            }
+        
         }
 
-        // No solution found???
     }
     
 }
 
-// @Override
-// public String toString() {
-//     String result = "";
-
-//     for (int i = 0; i < tiles.length; i++) {
-//         result += tiles[i];
-//     }
-
-//     return result;
-// }
