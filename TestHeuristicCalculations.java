@@ -4,6 +4,15 @@ public class TestHeuristicCalculations {
         Board board = new Board(startState);
         
         board.printClean();
+        System.out.println();
+
+        // Testing neighbors
+        int[][] neighbors = board.getNeighbors();
+        System.out.println("Neighbors: ");
+        for(int[] neighbor: neighbors) {
+            System.out.println("[" + neighbor[0] + ", " + neighbor[1] + "]");
+        }
+        System.out.println();
 
         // Testing h2: Manhattan Distance
         int manhattanVal = board.calculateh2();
