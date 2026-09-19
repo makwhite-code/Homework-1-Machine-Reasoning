@@ -3,7 +3,6 @@
 public class Node implements Comparable<Node> {
 
     private Board board;
-    private Node parent;
 
     private int g;
     private int h;
@@ -12,7 +11,6 @@ public class Node implements Comparable<Node> {
     // Starting node which is just the starting board
     public Node(Board board) {
         this.board = board;
-        this.parent = null;
 
         this.g = 0;
 
@@ -24,7 +22,6 @@ public class Node implements Comparable<Node> {
     // Neighbor node (possible moves) of parent node
     public Node(Board board, Node parent) {
         this.board = board;
-        this.parent = parent;
 
         // Calculate g using the parent's g
         this.g = parent.getG() + 1;
@@ -47,20 +44,10 @@ public class Node implements Comparable<Node> {
         return board;
     }
 
-    public Node getParent() {
-        return parent;
-    }
 
     public int getG() {
         return g;
     }
 
-    public int getH() {
-        return h;
-    }
-
-    public int getF() {
-        return f;
-    }
 }
 

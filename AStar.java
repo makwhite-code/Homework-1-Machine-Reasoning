@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 public class AStar {
 
 
-    public static void solve(Board start) {
+    public static int[] solve(Board start) {
 
     
 
@@ -35,11 +35,9 @@ public class AStar {
 
             // Check if this board is the goal
             if (current.getBoard().isSolved()) {
-                int depth = current.getG();
-                System.out.println("Solution depth: " + depth);
-                System.out.println("Nodes created: " + numNodes);
 
-                return;
+                int depth = current.getG();
+                return new int[]{depth, numNodes};
             }
 
             if (explored.contains(uniqueCombo)) {
@@ -70,8 +68,9 @@ public class AStar {
             }
         
         }
-
+        return new int[]{-1, numNodes};
     }
+   
     
 }
 
