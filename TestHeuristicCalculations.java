@@ -23,7 +23,10 @@ public class TestHeuristicCalculations {
         System.out.println("Misplaced Tiles: " + misplacedVal);
 
         //Testing h3: Relaxed Agency
+        board.printClean();
+        System.out.println();
         int relaxedVal = board.calculateh3();
         System.out.println("Relaxed Agency: " + relaxedVal);
+        board.printClean();
     }
 }

@@ -27,7 +27,7 @@ public class Board {
      * @param nums  The given start state of the board
      */
     public Board(int[] nums) {
-        this.tiles = nums;
+        this.tiles = nums.clone();
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -267,9 +267,9 @@ public class Board {
 
     
     /**
-     * returns the number of misplaced tiles
+     * Calculates the number of misplaced tiles of a given board
      * 
-     * @return 
+     * @return  Number of misplaced tiles
      */
     public int calculateh1() {
         if (isSolved() == true) {
@@ -292,9 +292,9 @@ public class Board {
 
   
     /**
-     * returns the total manhattan distance of each misplaced tile
+     * Calculates the total manhattan distance of each misplaced tile
      * 
-     * @return
+     * @return  The manhattan distance
      */
     public int calculateh2() {
         if (isSolved() == true) {
@@ -321,7 +321,7 @@ public class Board {
     /**
      * A helper function for calculateh3() that finds the first misplaced tile in the board
      * 
-     * @return
+     * @return  the coordinates [row, col] of the miplaced tile
      */
     public int[] findMisplaced() {
         int[] location = {-1, -1};
@@ -343,9 +343,10 @@ public class Board {
     /**
      * Implement relaxed agency function in paper.
      * 
-     * @return
+     * @return  the number of steps it takes to solve the board using relaxed agency
      */
     public int calculateh3() {
+        int[] state = getTiles();
         Board copy = new Board(tiles);
         int count = 0;
 
@@ -371,6 +372,7 @@ public class Board {
             }
         }
 
+        this.tiles = state;
         return count;
     }
 }
