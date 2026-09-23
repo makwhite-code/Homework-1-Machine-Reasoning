@@ -1,7 +1,7 @@
 # Homework-1-Machine-Reasoning
  # A* Search for the 8-Puzzle
 
-This project implements the **A* search algorithm** to solve the 8-puzzle problem. The assignment explores how different heuristic functions affect search performance, particularly the number of nodes generated and the depth of the solution.
+This project implements the **A* search algorithm** to solve the 8-puzzle problem. The assignment explores how different heuristic functions affect search performance, particularly the number of nodes generated and the effective branching factor.
 
 ## Project Overview
 
