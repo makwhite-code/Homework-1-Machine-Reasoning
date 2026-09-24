@@ -4,6 +4,20 @@ import java.util.HashMap;
 // Creates a hashmap and matches each of the nodes generated to its depth
 public class MapTrack {
 
+    public static void trackResult(
+            HashMap<Integer, ArrayList<Integer>> finalMap,
+            int[] result) {
+
+        int depth = result[0];
+        int nodesGenerated = result[1];
+
+        if (!finalMap.containsKey(depth)) {
+            finalMap.put(depth, new ArrayList<Integer>());
+        }
+
+        finalMap.get(depth).add(nodesGenerated);
+    }
+
     // Calculates the average value of each depth
     public static void calcAverages(
             HashMap<Integer, ArrayList<Integer>> finalMap) {
@@ -22,7 +36,7 @@ public class MapTrack {
 
             System.out.println(
                     "Depth: " + depth +
-                    "& Average nodes generated: " + average
+                    ", Average nodes generated: " + average
             );
         }
     }
